@@ -18,8 +18,14 @@ return new class extends Migration
             // relations
 
             // columns
-            $table->string('name')->nullable();
-            
+            $table->string('nombre');
+            $table->string('direccion')->nullable();
+            $table->string('rut')->nullable();
+            $table->string('glosa')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('email')->nullable();
+            $table->enum('tipo', ['emisora', 'receptora']);
+
             // default
             $table->timestamps();
             $table->softDeletes();

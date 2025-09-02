@@ -2,11 +2,28 @@
 
 namespace App\Models;
 
-use App\Models\Default\Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+
 
 class Maquinaria extends Model
 {
+    use HasUlids;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $fillable = [
-        'name',
+        'marca',
+        'modelo',
+        'anio',
+        'chasis',
+        'patente',
+        'kilometraje',
     ];
+
+    public function certificados()
+    {
+        return $this->hasMany(Certificado::class);
+    }
 }

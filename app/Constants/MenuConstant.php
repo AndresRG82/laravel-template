@@ -72,39 +72,7 @@ class MenuConstant
                 'route' => route('maquinarias.index'),
                 'active' => 'maquinarias.*',
                 'permission' => 'view-maquinaria',
-            ],            [
-                'name' => 'Maquinaria',
-                'show' => true,
-                'icon' => 'TableOfContents',
-                'route' => route('machineries.index'),
-                'active' => 'machineries.*',
-                'permission' => 'view-machinery',
-            ],        ];
-
-        if (Route::has('shortlink.link.index')) {
-            $menu = array_merge(
-                $menu,
-                [[
-                    'name' => 'Accesos Directos',
-                    'show' => true,
-                    'icon' => 'Globe',
-                    'route' => route('shortlink.link.index'),
-                    'active' => 'shortlink.link.*',
-                    'permission' => 'view-shortlink',
-                ]],
-            );
-        }
-
-        if (Route::has('custom-form.forms.index')) {
-            $menu = array_merge($menu, [[
-                'name' => 'Formulario Personalizado',
-                'show' => true,
-                'icon' => 'FormInput',
-                'route' => route('custom-form.forms.index'),
-                'active' => 'custom-form.forms.*',
-                'permission' => 'view-custom-form',
-            ]]);
-        }
+            ],];
 
         return $menu;
     }

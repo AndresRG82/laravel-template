@@ -2,11 +2,32 @@
 
 namespace App\Models;
 
-use App\Models\Default\Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+
 
 class Empresa extends Model
 {
+    use HasUlids;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $fillable = [
-        'name',
+        'nombre',
+        'direccion',
+        'telefono',
+        'email',
+        'tipo',
     ];
+
+    public function certificadosEmitidos()
+    {
+        return $this->hasMany(Certificado::class, 'empresa_emisora_id');
+    }
+
+    public function certificadosRecibidos()
+    {
+        return $this->hasMany(Certificado::class, 'empresa_receptora_id');
+    }
 }

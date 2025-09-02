@@ -35,10 +35,7 @@ class PermissionConstant
 		['label' => 'Update Maquinaria', 'name' => 'update-maquinaria' , 'group' => 'maquinaria'],
 		['label' => 'Create Maquinaria', 'name' => 'create-maquinaria' , 'group' => 'maquinaria'],
 		['label' => 'View Maquinaria', 'name' => 'view-maquinaria' , 'group' => 'maquinaria'],
-		['label' => 'Delete Machinery', 'name' => 'delete-machinery' , 'group' => 'machinery'],
-		['label' => 'Update Machinery', 'name' => 'update-machinery' , 'group' => 'machinery'],
-		['label' => 'Create Machinery', 'name' => 'create-machinery' , 'group' => 'machinery'],
-		['label' => 'View Machinery', 'name' => 'view-machinery' , 'group' => 'machinery'],
+
 
     ];
 

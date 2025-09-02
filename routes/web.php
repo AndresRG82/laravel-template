@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // #Admin
-Route::resource('machineries', MachineryController::class);
+
     //
 });
 
@@ -58,10 +58,7 @@ Route::resource('machineries', MachineryController::class);
 
 
 // Route::get('/{link:code}', [App\Module\Shortlink\Controllers\HomeController::class, 'redirect'])->name('redirect')
-Route::get('machineries', [MachineryController::class,'index'])->name('machineries.index');
-Route::post('machineries', [MachineryController::class,'store'])->name('machineries.store');
-Route::put('machineries/{machinery}', [MachineryController::class,'update'])->name('machineries.update');
-Route::delete('machineries/{machinery}', [MachineryController::class,'destroy'])->name('machineries.destroy');;
+
 Route::get('maquinarias', [MaquinariaController::class,'index'])->name('maquinarias.index');
 Route::post('maquinarias', [MaquinariaController::class,'store'])->name('maquinarias.store');
 Route::put('maquinarias/{maquinaria}', [MaquinariaController::class,'update'])->name('maquinarias.update');

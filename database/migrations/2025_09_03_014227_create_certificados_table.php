@@ -15,11 +15,20 @@ return new class extends Migration
             // id
             $table->ulid('id')->primary();
 
-            // relations
-
+            // relations (ULID foreign keys)
+            $table->ulid('empresa_emisora_id');
+            $table->ulid('empresa_receptora_id');
+            $table->foreign('empresa_emisora_id')->references('id')->on('empresas');
+            $table->foreign('empresa_receptora_id')->references('id')->on('empresas');
+            $table->ulid('maquinaria_id');
+            $table->foreign('maquinaria_id')->references('id')->on('maquinarias');
+            $table->ulid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             // columns
-            $table->string('name')->nullable();
-            
+            $table->string('servicio')->nullable();
+            $table->string('codigo_qr')->nullable();
+            $table->date('fecha_emision')->nullable();
+
             // default
             $table->timestamps();
             $table->softDeletes();

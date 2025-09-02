@@ -16,10 +16,17 @@ return new class extends Migration
             $table->ulid('id')->primary();
 
             // relations
-
+            $table->foreignId('tipo_maquinaria_id')->constrained('tipo_maquinarias');
             // columns
-            $table->string('name')->nullable();
-            
+            $table->string('numero_interno')->nullable();
+            $table->string('marca')->nullable();
+            $table->string('modelo')->nullable();
+            $table->year('anio')->nullable();
+            $table->string('vin')->nullable();
+            $table->string('numero_motor')->nullable();
+            $table->string('ppu')->nullable();
+            $table->integer('kilometraje')->nullable();
+
             // default
             $table->timestamps();
             $table->softDeletes();
