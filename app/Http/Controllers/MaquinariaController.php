@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Maquinaria;
+use App\Models\TipoMaquinaria;
 use App\Attributes\Permission;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,10 +14,10 @@ class MaquinariaController extends Controller
     #[Permission('view-maquinaria')]
     public function index(Request $request): Response
     {
-        $query = Maquinaria::query();
+    $query = Maquinaria::with('tipo_maquinaria');
 
         if ($request->q) {
-            // multi columns search 
+            // multi columns search
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', "%{$request->q}%");
             });
@@ -26,6 +27,7 @@ class MaquinariaController extends Controller
 
         return inertia('maquinaria/index', [
             'data' => $query->paginate(10),
+            'tipos_maquinaria' => TipoMaquinaria::select('id', 'nombre')->get(),
         ]);
     }
 

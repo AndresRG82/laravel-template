@@ -26,4 +26,16 @@ class Maquinaria extends Model
     {
         return $this->hasMany(Certificado::class);
     }
+
+    public function tipo_maquinaria()
+    {
+        return $this->belongsTo(TipoMaquinaria::class);
+    }
+
+    // Accesor para obtener el nombre del tipo de maquinaria
+    public function getTipoMaquinariaNombreAttribute()
+    {
+        return $this->tipo_maquinaria?->nombre;
+    }
+
 }

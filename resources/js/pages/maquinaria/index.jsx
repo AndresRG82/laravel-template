@@ -91,14 +91,28 @@ export default function Index(props) {
                         <table className="table mb-4">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th />
+                                    <th>N° INTERNO</th>
+                                    <th>PPU</th>
+                                    <th>TIPO</th>
+                                    <th>AÑO</th>
+                                    <th>MARCA</th>
+                                    <th>MODELO</th>
+                                    <th>N° MOTOR</th>
+                                    <th>VIN</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {data.map((maquinaria, index) => (
                                     <tr key={maquinaria.id}>
-                                        <td>{maquinaria.name}</td>
+                                        <td>{maquinaria.numero_interno}</td>
+                                        <td>{maquinaria.ppu}</td>
+                                        <td>{maquinaria.tipo_maquinaria.nombre}</td>
+                                        <td>{maquinaria.anio}</td>
+                                        <td>{maquinaria.marca}</td>
+                                        <td>{maquinaria.modelo}</td>
+                                        <td>{maquinaria.numero_motor}</td>
+                                        <td>{maquinaria.vin}</td>
+
                                         <td className="text-end">
                                             <Dropdown>
                                                 <HasPermission p="update-maquinaria">
@@ -110,7 +124,7 @@ export default function Index(props) {
                                                         }
                                                     >
                                                         <div className="flex space-x-1 items-center">
-                                                            <Pencil className='w-4 h-4'/>
+                                                            <Pencil className='w-4 h-4' />
                                                             <div>Editar</div>
                                                         </div>
                                                     </Dropdown.Item>
@@ -124,7 +138,7 @@ export default function Index(props) {
                                                         }
                                                     >
                                                         <div className="flex space-x-1 items-center">
-                                                            <Trash className='w-4 h-4'/>
+                                                            <Trash className='w-4 h-4' />
                                                             <div>Eliminar</div>
                                                         </div>
                                                     </Dropdown.Item>
@@ -142,7 +156,7 @@ export default function Index(props) {
                 </Card>
             </div>
             <ModalConfirm onConfirm={onDelete} modalState={confirmModal} />
-            <FormModal modalState={formModal} />
+            <FormModal modalState={formModal} tipos_maquinaria={props.tipos_maquinaria} />
         </AuthenticatedLayout>
     )
 }
