@@ -16,13 +16,14 @@ class EmpresaController extends Controller
         $query = Empresa::query();
 
         if ($request->q) {
-            // multi columns search 
+            // multi columns search
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', "%{$request->q}%");
             });
         }
 
         $query->orderBy('created_at', 'desc');
+        $query->where('tipo', 'receptora');
 
         return inertia('empresa/index', [
             'data' => $query->paginate(10),

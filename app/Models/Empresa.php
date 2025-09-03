@@ -13,12 +13,23 @@ class Empresa extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+
     protected $fillable = [
         'nombre',
+        'rut',
         'direccion',
         'telefono',
         'email',
         'tipo',
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'tipo' => 'receptora',
     ];
 
     public function certificadosEmitidos()

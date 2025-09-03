@@ -92,13 +92,21 @@ export default function Index(props) {
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th />
+                                    <th>RUT</th>
+                                    <th>Direccion</th>
+                                    <th>Telefono</th>
+                                    <th>Email</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {data.map((empresa, index) => (
                                     <tr key={empresa.id}>
-                                        <td>{empresa.name}</td>
+                                        <td>{empresa.nombre}</td>
+                                        <td>{empresa.rut}</td>
+                                        <td>{empresa.direccion}</td>
+                                        <td>{empresa.telefono}</td>
+                                        <td>{empresa.email}</td>
+
                                         <td className="text-end">
                                             <Dropdown>
                                                 <HasPermission p="update-empresa">
