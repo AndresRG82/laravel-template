@@ -91,14 +91,22 @@ export default function Index(props) {
                         <table className="table mb-4">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>Orden de Trabajo</th>
+                                    <th>Empresa</th>
+                                    <th>Servicio</th>
+                                    <th>Maquinaria</th>
+                                    <th>Fecha de Emisión</th>
                                     <th />
                                 </tr>
                             </thead>
                             <tbody>
                                 {data.map((certificado, index) => (
                                     <tr key={certificado.id}>
-                                        <td>{certificado.name}</td>
+                                        <td>{certificado.orden_trabajo}</td>
+                                        <td>{certificado.empresa_nombre}</td>
+                                        <td>{certificado.servicio}</td>
+                                        <td>{certificado.maquinaria_marca} - {certificado.maquinaria_modelo} - {certificado.maquinaria_ppu} </td>
+                                        <td>{certificado.fecha_emision}</td>
                                         <td className="text-end">
                                             <Dropdown>
                                                 <HasPermission p="update-certificado">
@@ -142,7 +150,7 @@ export default function Index(props) {
                 </Card>
             </div>
             <ModalConfirm onConfirm={onDelete} modalState={confirmModal} />
-            <FormModal modalState={formModal} />
+            <FormModal modalState={formModal}  empresas={props.empresas} maquinarias={props.maquinarias}/>
         </AuthenticatedLayout>
     )
 }

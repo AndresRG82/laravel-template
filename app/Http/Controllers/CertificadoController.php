@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificado;
+use App\Models\Empresa;
+use App\Models\Maquinaria;
+
 use App\Attributes\Permission;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,10 +16,10 @@ class CertificadoController extends Controller
     #[Permission('view-certificado')]
     public function index(Request $request): Response
     {
-        $query = Certificado::query();
+    $query = Certificado::query();
 
         if ($request->q) {
-            // multi columns search 
+            // multi columns search
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', "%{$request->q}%");
             });
@@ -26,7 +29,10 @@ class CertificadoController extends Controller
 
         return inertia('certificado/index', [
             'data' => $query->paginate(10),
+            'empresas' => Empresa::where('tipo', 'receptora')->get(),
+            'maquinarias' => Maquinaria::all(),
         ]);
+
     }
 
     #[Permission('create-certificado')]

@@ -10,35 +10,24 @@ class Certificado extends Model
 {
     use HasUlids;
 
-    protected $keyType = 'string';
-    public $incrementing = false;
 
     protected $fillable = [
-        'empresa_emisora_id',
-        'empresa_receptora_id',
-        'servicio_id',
-        'maquinaria_id',
         'codigo_qr',
+        'orden_trabajo',
         'fecha_emision',
+        'servicio',
+        'maquinaria_marca',
+        'maquinaria_modelo',
+        'maquinaria_anio',
+        'maquinaria_vin',
+        'maquinaria_numero_motor',
+        'maquinaria_ppu',
+        'maquinaria_kilometraje',
+        'empresa_nombre',
+        'empresa_direccion',
+        'empresa_rut',
+        'empresa_telefono',
+        'empresa_email',
     ];
 
-    public function empresaEmisora()
-    {
-        return $this->belongsTo(Empresa::class, 'empresa_emisora_id');
-    }
-
-    public function empresaReceptora()
-    {
-        return $this->belongsTo(Empresa::class, 'empresa_receptora_id');
-    }
-
-    public function servicio()
-    {
-        return $this->belongsTo(Servicio::class);
-    }
-
-    public function maquinaria()
-    {
-        return $this->belongsTo(Maquinaria::class);
-    }
 }
