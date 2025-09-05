@@ -73,11 +73,17 @@ export default function CaratulaQr({ certificado  }) {
             </div>
 
             {/* Destinatario */}
-            <div className="w-full mb-6">
-                <p className="text-base mb-0">Señores:</p>
-                <p className="text-base mb-0">{certificado.empresa_nombre}</p>
-                <p className="text-base">{certificado.empresa_rut}</p>
-            </div>
+            {(certificado.empresa_nombre || certificado.empresa_rut) && (
+                <div className="w-full mb-6">
+                    <p className="mb-0"><strong>Señores:</strong></p>
+                    {certificado.empresa_nombre && (
+                        <p className="text-base mb-0">{certificado.empresa_nombre}</p>
+                    )}
+                    {certificado.empresa_rut && (
+                        <p className="text-base">{certificado.empresa_rut}</p>
+                    )}
+                </div>
+            )}
 
             {/* Cuerpo */}
             <p className="mb-4 w-full">
@@ -87,14 +93,30 @@ export default function CaratulaQr({ certificado  }) {
 
             <div className="grid grid-cols-2 gap-4 mb-4 w-full">
                 <div>
-                    <p><strong>Marca:</strong> {certificado.maquinaria_marca}</p>
-                    <p><strong>Modelo:</strong> {certificado.maquinaria_modelo}</p>
-                    <p><strong>Año:</strong> {certificado.maquinaria_anio}</p>
-                    <p><strong>Chasis:</strong> {certificado.maquinaria_numero_motor}</p>
-                    <p><strong>Patente:</strong> {certificado.maquinaria_ppu}</p>
-                    <p><strong>Kilometraje:</strong> {certificado.maquinaria_kilometraje} kms</p>
-                    <p><strong>Fecha de servicio:</strong> {formatFecha(certificado.fecha_servicio)}</p>
-                    <p><strong>Tipo de servicio:</strong> {certificado.servicio}</p>
+                        {certificado.maquinaria_marca && (
+                            <p><strong>Marca:</strong> {certificado.maquinaria_marca}</p>
+                        )}
+                        {certificado.maquinaria_modelo && (
+                            <p><strong>Modelo:</strong> {certificado.maquinaria_modelo}</p>
+                        )}
+                        {certificado.maquinaria_anio && (
+                            <p><strong>Año:</strong> {certificado.maquinaria_anio}</p>
+                        )}
+                        {certificado.maquinaria_numero_motor && (
+                            <p><strong>Chasis:</strong> {certificado.maquinaria_numero_motor}</p>
+                        )}
+                        {certificado.maquinaria_ppu && (
+                            <p><strong>Patente:</strong> {certificado.maquinaria_ppu}</p>
+                        )}
+                        {certificado.maquinaria_kilometraje && (
+                            <p><strong>Kilometraje:</strong> {certificado.maquinaria_kilometraje} kms</p>
+                        )}
+                        {certificado.fecha_servicio && (
+                            <p><strong>Fecha de servicio:</strong> {formatFecha(certificado.fecha_servicio)}</p>
+                        )}
+                        {certificado.servicio && (
+                            <p><strong>Tipo de servicio:</strong> {certificado.servicio}</p>
+                        )}
                 </div>
                 <div className="flex justify-center items-center pl-8">
                     <QRCodeCanvas

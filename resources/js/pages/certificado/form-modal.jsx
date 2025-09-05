@@ -131,7 +131,7 @@ export default function FormModal(props) {
                                         name="orden_trabajo"
                                         value={data.orden_trabajo || ''}
                                         onChange={handleOnChange}
-                                        placeholder="Type here"
+                                           placeholder="Ingrese la orden de trabajo"
                                         className={`input w-full ${errors.orden_trabajo ? 'input-error' : ''}`}
                                     />
                                     {errors.orden_trabajo && (
@@ -148,7 +148,7 @@ export default function FormModal(props) {
                                         name="servicio"
                                         value={data.servicio || ''}
                                         onChange={handleOnChange}
-                                        placeholder="Type here"
+                                           placeholder="Ingrese el servicio realizado"
                                         className={`input w-full ${errors.servicio ? 'input-error' : ''}`}
                                     />
                                     {errors.servicio && (
@@ -201,7 +201,7 @@ export default function FormModal(props) {
                                         onChange={handleOnChange}
                                         className={`input w-full ${errors.empresa_nombre ? 'input-error' : ''}`}
                                     >
-                                        <option value="">Seleccione tipo</option>
+                                        <option value="">Seleccione la empresa</option>
                                         {props.empresas &&
                                             props.empresas.map((empresa) => (
                                                 <option key={empresa.id} value={empresa.id}>
@@ -219,7 +219,7 @@ export default function FormModal(props) {
                                     name="empresa_rut"
                                     value={data.empresa_rut || ''}
                                     onChange={handleOnChange}
-                                    placeholder="Type here"
+                                       placeholder="RUT de la empresa"
                                     className={`input w-full hidden ${errors.empresa_rut ? 'input-error' : ''}`}
                                 />
 
@@ -237,7 +237,7 @@ export default function FormModal(props) {
                                             onChange={handleOnChange}
                                             className={`input w-full ${errors.maquinaria_vin ? 'input-error' : ''}`}
                                         >
-                                            <option value="">Seleccione tipo</option>
+                                            <option value="">Seleccione la maquinaria</option>
                                             {props.maquinarias &&
                                                 props.maquinarias.map((maquinaria) => (
                                                     <option key={maquinaria.id} value={maquinaria.id}>
@@ -260,7 +260,7 @@ export default function FormModal(props) {
                                             name="maquinaria_kilometraje"
                                             value={data.maquinaria_kilometraje || ''}
                                             onChange={handleOnChange}
-                                            placeholder="Type here"
+                                               placeholder="Ingrese el kilometraje de la maquinaria"
                                             className={`input w-full ${errors.maquinaria_kilometraje ? 'input-error' : ''}`}
                                         />
                                         {errors.maquinaria_kilometraje && (
@@ -273,7 +273,7 @@ export default function FormModal(props) {
                                         name="maquinaria_marca"
                                         value={data.maquinaria_marca || ''}
                                         onChange={handleOnChange}
-                                        placeholder="Type here"
+                                           placeholder="Marca de la maquinaria"
                                         className={`input w-full hidden ${errors.maquinaria_marca ? 'input-error' : ''}`}
                                     />
                                     <input
@@ -282,7 +282,7 @@ export default function FormModal(props) {
                                         name="maquinaria_modelo"
                                         value={data.maquinaria_modelo || ''}
                                         onChange={handleOnChange}
-                                        placeholder="Type here"
+                                           placeholder="Modelo de la maquinaria"
                                         className={`input w-full hidden ${errors.maquinaria_modelo ? 'input-error' : ''}`}
                                     />
                                     <input
@@ -291,7 +291,7 @@ export default function FormModal(props) {
                                         name="maquinaria_anio"
                                         value={data.maquinaria_anio || ''}
                                         onChange={handleOnChange}
-                                        placeholder="Type here"
+                                           placeholder="Año de la maquinaria"
                                         className={`input w-full hidden ${errors.maquinaria_anio ? 'input-error' : ''}`}
                                     />
                                     <input
@@ -300,7 +300,7 @@ export default function FormModal(props) {
                                         name="maquinaria_numero_motor"
                                         value={data.maquinaria_numero_motor || ''}
                                         onChange={handleOnChange}
-                                        placeholder="Type here"
+                                           placeholder="Número de motor"
                                         className={`input w-full hidden ${errors.maquinaria_numero_motor ? 'input-error' : ''}`}
                                     />
                                     <input
@@ -309,7 +309,7 @@ export default function FormModal(props) {
                                         name="maquinaria_ppu"
                                         value={data.maquinaria_ppu || ''}
                                         onChange={handleOnChange}
-                                        placeholder="Type here"
+                                           placeholder="PPU de la maquinaria"
                                         className={`input w-full hidden ${errors.maquinaria_ppu ? 'input-error' : ''}`}
                                     />
 
