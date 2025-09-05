@@ -59,7 +59,7 @@ return new class extends Migration
                 'empresa_email',
             ]);
 
-             $table->ulid('empresa_receptora_id');
+            $table->ulid('empresa_receptora_id');
             $table->foreign('empresa_receptora_id')->references('id')->on('empresas');
             $table->ulid('maquinaria_id');
             $table->foreign('maquinaria_id')->references('id')->on('maquinarias');

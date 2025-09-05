@@ -83,7 +83,7 @@ export default function Index(props) {
                             <SearchInput
                                 onChange={(e) => setSearch(e.target.value)}
                                 value={search}
-                                placeholder="Buscar por nombre..."
+                                placeholder="Buscar por N° Orden"
                             />
                         </div>
                     </div>

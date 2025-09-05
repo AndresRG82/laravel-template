@@ -3,7 +3,6 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { usePage } from '@inertiajs/react'
 
 export default function CaratulaQr({ certificado  }) {
-    console.log('Certificado data:', certificado);
     // Función para formatear fecha a DD/MM/YYYY sin desfase de día
     function formatFecha(fecha) {
         if (!fecha) return '';

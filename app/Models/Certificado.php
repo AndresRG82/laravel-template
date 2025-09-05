@@ -15,6 +15,7 @@ class Certificado extends Model
         'codigo_qr',
         'orden_trabajo',
         'fecha_emision',
+        'fecha_servicio',
         'servicio',
         'maquinaria_marca',
         'maquinaria_modelo',
@@ -28,6 +29,7 @@ class Certificado extends Model
         'empresa_rut',
         'empresa_telefono',
         'empresa_email',
+        'user_id',
     ];
 
 }
