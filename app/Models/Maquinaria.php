@@ -14,18 +14,18 @@ class Maquinaria extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'tipo_maquinaria_id',
         'marca',
         'modelo',
         'anio',
-        'chasis',
-        'patente',
+        'vin',
+        'ppu',
         'kilometraje',
+        'numero_interno',
+        'numero_motor'
+
     ];
 
-    public function certificados()
-    {
-        return $this->hasMany(Certificado::class);
-    }
 
     public function tipo_maquinaria()
     {

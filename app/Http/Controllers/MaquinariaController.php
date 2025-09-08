@@ -35,11 +35,27 @@ class MaquinariaController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'tipo_maquinaria_id' => 'required|integer|exists:tipo_maquinarias,id',
+            'marca' => 'required|string|max:255',
+            'modelo' => 'required|string|max:255',
+            'anio' => 'integer|min:1900|max:' . date('Y'),
+            'vin' => 'nullable|string|max:255',
+            'patente' => 'nullable|string|max:255',
+            'kilometraje' => 'nullable|integer|min:0',
+            'numero_interno' => 'nullable|string|max:255',
+            'numero_motor' => 'nullable|string|max:255',
         ]);
 
         Maquinaria::create([
-            'name' => $request->name
+            'tipo_maquinaria_id' => $request->tipo_maquinaria_id,
+            'marca' => $request->marca,
+            'modelo' => $request->modelo,
+            'anio' => $request->anio,
+            'vin' => $request->vin,
+            'ppu' => $request->ppu,
+            'kilometraje' => $request->kilometraje,
+            'numero_interno' => $request->numero_interno,
+            'numero_motor' => $request->numero_motor,
         ]);
 
         return redirect()->route('maquinarias.index')
@@ -50,11 +66,27 @@ class MaquinariaController extends Controller
     public function update(Request $request, Maquinaria $maquinaria): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'tipo_maquinaria_id' => 'required|integer|exists:tipo_maquinarias,id',
+            'marca' => 'required|string|max:255',
+            'modelo' => 'required|string|max:255',
+            'anio' => 'integer|min:1900|max:' . date('Y'),
+            'vin' => 'nullable|string|max:255',
+            'patente' => 'nullable|string|max:255',
+            'kilometraje' => 'nullable|integer|min:0',
+            'numero_interno' => 'nullable|string|max:255',
+            'numero_motor' => 'nullable|string|max:255',
         ]);
 
         $maquinaria->fill([
-            'name' => $request->name,
+            'tipo_maquinaria_id' => $request->tipo_maquinaria_id,
+            'marca' => $request->marca,
+            'modelo' => $request->modelo,
+            'anio' => $request->anio,
+            'vin' => $request->vin,
+            'patente' => $request->patente,
+            'kilometraje' => $request->kilometraje,
+            'numero_interno' => $request->numero_interno,
+            'numero_motor' => $request->numero_motor,
         ]);
 
         $maquinaria->save();

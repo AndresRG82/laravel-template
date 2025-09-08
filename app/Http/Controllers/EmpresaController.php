@@ -34,11 +34,19 @@ class EmpresaController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'rut' => 'required|string|max:20',
+            'direccion' => 'string|max:255',
+            'telefono' => 'string|max:20',
+            'email' => 'email|max:255',
         ]);
 
         Empresa::create([
-            'name' => $request->name
+            'nombre' => $request->nombre,
+            'rut' => $request->rut,
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
         ]);
 
         return redirect()->route('empresas.index')
@@ -49,11 +57,19 @@ class EmpresaController extends Controller
     public function update(Request $request, Empresa $empresa): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'rut' => 'required|string|max:20',
+            'direccion' => 'required|string|max:255',
+            'telefono' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
         ]);
 
         $empresa->fill([
-            'name' => $request->name,
+            'nombre' => $request->nombre,
+            'rut' => $request->rut,
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
         ]);
 
         $empresa->save();

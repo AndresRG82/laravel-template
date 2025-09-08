@@ -137,7 +137,7 @@ export default function FormModal(props) {
                     onChange={handleOnChange}
                     label="VIN"
                     placeholder="Ingrese el VIN"
-                    error={errors.name}
+                    error={errors.vin}
                 />
 
                 <div className="flex items-center space-x-2 mt-4">
