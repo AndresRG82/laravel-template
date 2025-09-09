@@ -114,7 +114,7 @@ export default function FormModal(props) {
     return (
         <>
             {/* DaisyUI Modal */}
-            <input type="checkbox" className="modal-toggle" checked={modalState.isOpen} readOnly />
+            <input type="checkbox" className="modal-toggle" id="modal-toggle-certificado" name="modal-toggle-certificado" checked={modalState.isOpen} readOnly />
             <div className={`modal ${modalState.isOpen ? 'modal-open' : ''}`}>
                 <div className="modal-box max-w-6xl w-full p-0">
                     <div className='flex w-full flex-col lg:flex-row'>
@@ -339,7 +339,7 @@ export default function FormModal(props) {
                         </div>
                     </div>
                 </div>
-                <label className="modal-backdrop" onClick={handleClose}></label>
+                <label className="modal-backdrop" htmlFor="modal-toggle-certificado" onClick={handleClose}></label>
             </div>
         </>
     )

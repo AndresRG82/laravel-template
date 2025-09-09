@@ -49,6 +49,7 @@ export function DarkSwitch() {
     return (
         <label className="swap swap-rotate hover:bg-base-200 p-1 rounded-2xl">
             <input
+                id='dark-mode-toggle'
                 type="checkbox"
                 data-toggle-theme="dark,light" // change here
                 data-act-class="ACTIVECLASS"

@@ -2,7 +2,9 @@ import React from "react";
 import { QRCodeCanvas } from 'qrcode.react';
 import { usePage } from '@inertiajs/react'
 
-export default function CaratulaQr({ certificado  }) {
+const CaratulaQr = React.forwardRef(function CaratulaQr(props, ref) {
+    const { certificado: certificadoProp, app_logo: appLogoProp } = props;
+    const validCertificado = certificadoProp || {};
     // Función para formatear fecha a DD/MM/YYYY sin desfase de día
     function formatFecha(fecha) {
         if (!fecha) return '';
@@ -22,135 +24,132 @@ export default function CaratulaQr({ certificado  }) {
         const year = d.getFullYear();
         return `${day}/${month}/${year}`;
     }
-     const {
-            props: {
-                app: {  app_logo },
-            },
-        } = usePage()
-    // Usar directamente los nombres snake_case del form
-    certificado = certificado || {};
-    // Importar la fuente Roboto Mono solo para este componente
-    React.useEffect(() => {
-        const id = 'roboto-mono-font';
-        if (!document.getElementById(id)) {
-            const link = document.createElement('link');
-            link.id = id;
-            link.rel = 'stylesheet';
-            link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap';
-            document.head.appendChild(link);
+    // Si no se pasa app_logo como prop, usar usePage
+    let app_logo = appLogoProp;
+    if (typeof app_logo === 'undefined') {
+        try {
+            const { props: { app: { app_logo: logoFromPage } } } = usePage();
+            app_logo = logoFromPage;
+        } catch (e) {
+            app_logo = undefined;
         }
-    }, []);
+    }
+
 
     return (
         <div
-            className="bg-white p-8 mt-6 rounded-lg shadow-lg font-serif flex flex-col items-center"
+            ref={ref}
+            className="bg-white mx-auto"
             style={{
-                fontFamily: 'Roboto Mono, monospace',
-                width: '620px', // Más angosto, pero manteniendo proporción vertical
-                minHeight: '900px', // Mantener proporción A4 pero más compacto
+                fontFamily: 'Times New Roman, Times, serif',
+                width: '794px', // A4 width at 96dpi
+              //  minHeight: '1123px', // A4 height at 96dpi
+                background: '#fff',
+                color: '#222',
+                boxShadow: 'none',
+                border: 'none',
+                padding: '40px',
+                margin: '0 auto',
                 boxSizing: 'border-box',
             }}
         >
             {/* Encabezado */}
-            <div className="flex justify-between items-center mb-6 border-b pb-4 w-full">
-                <div>
-                    <h1 className="text-2xl font-bold uppercase">
-                        Mecánica Valdebenito EIRL
-                    </h1>
-                    <p className="text-sm italic">
-                        Especialista en Mantención y Reparación de Vehículos
-                    </p>
-                    <p className="text-sm">RUT: 76.938.678-5</p>
+            <div
+                className="flex justify-between items-center mb-2 pb-2"
+                style={{
+                    borderBottom: '1px solid #222',
+                    boxShadow: 'none',
+                    padding: 0,
+                    marginBottom: '24px',
+                    alignItems: 'flex-end',
+                    width: '100%',
+                    maxWidth: '100%',
+                    boxSizing: 'border-box',
+                }}
+            >
+                <div style={{textAlign: 'left', width: 'auto', flex: 1}}>
+                    <h1 style={{fontSize: '1.5rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '2px'}} className="text-2xl font-bold uppercase">Mecánica Valdebenito EIRL</h1>
+                    <p style={{fontSize: '1.05rem', fontStyle: 'italic', marginBottom: '2px'}} className="text-sm italic">Especialista en Mantención y Reparación de Vehículos</p>
+                    <p style={{fontSize: '1.05rem', marginBottom: '2px'}} className="text-sm">RUT: 76.938.678-5</p>
                 </div>
-                <img
-                    src={route('file.show', app_logo)}
-                    alt="Logo Mecánica Valdebenito"
-                    width={160}
-                    height={100}
-                    className="object-contain"
-                />
+                {app_logo && (
+                    <img
+                        src={route('file.show', app_logo)}
+                        alt="Logo Mecánica Valdebenito"
+                        width={180}
+                        height={120}
+                        style={{objectFit: 'contain', marginLeft: '16px', flexShrink: 0}}
+                        className="object-contain"
+                    />
+                )}
             </div>
 
             {/* Destinatario */}
-            {(certificado.empresa_nombre || certificado.empresa_rut) && (
-                <div className="w-full mb-6">
-                    <p className="mb-0"><strong>Señores:</strong></p>
-                    {certificado.empresa_nombre && (
-                        <p className="text-base mb-0">{certificado.empresa_nombre}</p>
+            {(validCertificado.empresa_nombre || validCertificado.empresa_rut) && (
+                <div className="w-full" style={{marginBottom: '18px'}}>
+                    <p style={{marginBottom: '2px', fontSize: '1.1rem'}} className="mb-0"><strong>Señores:</strong></p>
+                    {validCertificado.empresa_nombre && (
+                        <p style={{marginBottom: '2px', fontSize: '1.1rem'}} className="text-base mb-0">{validCertificado.empresa_nombre}</p>
                     )}
-                    {certificado.empresa_rut && (
-                        <p className="text-base">{certificado.empresa_rut}</p>
+                    {validCertificado.empresa_rut && (
+                        <p style={{fontSize: '1.1rem'}} className="text-base">{validCertificado.empresa_rut}</p>
                     )}
                 </div>
             )}
 
             {/* Cuerpo */}
-            <p className="mb-4 w-full">
-                Según Orden de Trabajo Nº <strong>{certificado.orden_trabajo}</strong>, el vehículo
+            <p className="w-full" style={{fontSize: '1.1rem', marginBottom: '12px'}}>
+                Según Orden de Trabajo Nº <strong>{validCertificado.orden_trabajo}</strong>, el vehículo
                 individualizado fue sometido a una mantención preventiva en nuestro servicio técnico.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 mb-4 w-full">
-                <div>
-                        {certificado.maquinaria_marca && (
-                            <p><strong>Marca:</strong> {certificado.maquinaria_marca}</p>
-                        )}
-                        {certificado.maquinaria_modelo && (
-                            <p><strong>Modelo:</strong> {certificado.maquinaria_modelo}</p>
-                        )}
-                        {certificado.maquinaria_anio && (
-                            <p><strong>Año:</strong> {certificado.maquinaria_anio}</p>
-                        )}
-                        {certificado.maquinaria_numero_motor && (
-                            <p><strong>Chasis:</strong> {certificado.maquinaria_numero_motor}</p>
-                        )}
-                        {certificado.maquinaria_ppu && (
-                            <p><strong>Patente:</strong> {certificado.maquinaria_ppu}</p>
-                        )}
-                        {certificado.maquinaria_kilometraje && (
-                            <p><strong>Kilometraje:</strong> {certificado.maquinaria_kilometraje} kms</p>
-                        )}
-                        {certificado.fecha_servicio && (
-                            <p><strong>Fecha de servicio:</strong> {formatFecha(certificado.fecha_servicio)}</p>
-                        )}
-                        {certificado.servicio && (
-                            <p><strong>Tipo de servicio:</strong> {certificado.servicio}</p>
-                        )}
+            <div className="grid grid-cols-2 gap-2 mb-2 w-full" style={{padding: 0, marginBottom: '12px'}}>
+                <div style={{fontSize: '1.1rem', lineHeight: '1.7'}}>
+                    <p><strong>Marca:</strong> {validCertificado.maquinaria_marca}</p>
+                    <p><strong>Modelo:</strong> {validCertificado.maquinaria_modelo}</p>
+                    <p><strong>Año:</strong> {validCertificado.maquinaria_anio}</p>
+                    <p><strong>Chasis:</strong> {validCertificado.maquinaria_numero_motor}</p>
+                    <p><strong>Patente:</strong> {validCertificado.maquinaria_ppu}</p>
+                    <p><strong>Kilometraje:</strong> {validCertificado.maquinaria_kilometraje} kms</p>
+                    <p><strong>Fecha de servicio:</strong> {formatFecha(validCertificado.fecha_servicio)}</p>
+                    <p><strong>Tipo de servicio:</strong> {validCertificado.servicio}</p>
                 </div>
-                <div className="flex justify-center items-center pl-8">
+                <div className="flex justify-center items-center">
                     <QRCodeCanvas
-                        value={route('certificado.qr', { id: certificado.id })}
-                        size={128}
-                        className="border p-2"
+                        value={route('certificado.qr', { id: validCertificado.id })}
+                        size={110}
+                        style={{ border: 'none', boxShadow: 'none', padding: 0 }}
                     />
                 </div>
             </div>
 
-            <p className="mb-6 w-full">
+            <p className="w-full" style={{fontSize: '1.1rem', marginBottom: '12px'}}>
                 Certifica que a la fecha, el vehículo descrito se encuentra en óptimas condiciones mecánicas y eléctricas, cumpliendo los estándares exigidos para su operación segura.
             </p>
 
             {/* Pie */}
-            <div className="flex justify-between items-end mt-12 w-full">
-                {/* Columna izquierda */}
-                <div className="w-1/2">
-                    <p><strong>Certificado emitido:</strong> {formatFecha(certificado.fecha_emision)}</p>
-                    <p className="mt-6">Sin otro particular, saluda atentamente:</p>
+            <div style={{ width: '100%', marginTop: '40px', display: 'flex', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+                {/* Columna izquierda: texto */}
+                <div style={{ textAlign: 'left', fontSize: '1.1rem', flex: 1 }}>
+                    <p style={{ marginBottom: '8px' }}><strong>Certificado emitido:</strong> {formatFecha(validCertificado.fecha_emision)}</p>
+                    <p style={{ marginTop: '32px', marginBottom: '0' }}>Sin otro particular, saluda atentamente:</p>
                 </div>
-
-                {/* Columna derecha (firma centrada dentro de su espacio) */}
-                <div className="w-1/2 text-center">
+                {/* Columna derecha: firma */}
+                <div style={{ textAlign: 'center', flex: 1 }}>
                     <img
                         src={route('image', { filename: 'firma_sin_fondo.png' })}
                         alt="Firma"
-                        width={150}
-                        height={60}
+                        width={120}
+                        height={48}
+                        style={{ objectFit: 'contain', margin: '0 auto', display: 'block' }}
                         className="mx-auto object-contain"
                     />
-                    <p className="font-sans font-semibold mt-2">Sebastian Valdebenito</p>
-                    <p className="text-sm font-sans">Representante Legal</p>
+                    <p style={{ fontFamily: 'Times New Roman, Times, serif', fontWeight: 'bold', fontSize: '1.1rem', marginTop: '8px', marginBottom: 0 }}>Sebastian Valdebenito</p>
+                    <p style={{ fontFamily: 'Times New Roman, Times, serif', fontSize: '1rem', marginTop: 0 }}>Representante Legal</p>
                 </div>
             </div>
-        </div>
+    </div>
     );
-}
+});
+
+export default CaratulaQr;

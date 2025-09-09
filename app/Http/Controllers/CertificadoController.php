@@ -107,4 +107,44 @@ class CertificadoController extends Controller
         return redirect()->route('certificados.index')
             ->with('message', ['type' => 'success', 'message' => 'Item has been deleted']);
     }
+
+        /**
+         * Muestra la carátula QR del certificado o pide el número de orden para buscarlo.
+         */
+        public function qr(Request $request): \Inertia\Response
+        {
+            $orden = $request->input('orden_trabajo');
+            $certificado = null;
+            $error = null;
+            if ($orden) {
+                $certificado = Certificado::where('orden_trabajo', $orden)->orWhere('id', $orden)->first();
+
+                if (!$certificado) {
+                    $error = 'No se encontró certificado para ese número de orden.';
+                }
+            }
+            return \Inertia\Inertia::render('certificado/qr', [
+                'certificado' => $certificado,
+                'orden_trabajo' => $orden,
+                'error' => $error,
+            ]);
+        }
+
+        public function downloadPdf($id)
+    {
+        $certificado = Certificado::findOrFail($id);
+        $empresa = Empresa::where('nombre', $certificado->empresa_nombre)->first();
+        $maquinaria = Maquinaria::where('ppu', $certificado->maquinaria_ppu)->first();
+
+        $data = [
+            'certificado' => $certificado,
+            'empresa' => $empresa,
+            'maquinaria' => $maquinaria,
+        ];
+
+        $pdf = \PDF::loadView('certificado.pdf', $data)
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('certificado_'.$certificado->orden_trabajo.'.pdf');
+    }
 }

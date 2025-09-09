@@ -71,8 +71,9 @@ Route::get('certificados', [CertificadoController::class,'index'])->name('certif
 Route::post('certificados', [CertificadoController::class,'store'])->name('certificados.store');
 Route::put('certificados/{certificado}', [CertificadoController::class,'update'])->name('certificados.update');
 Route::delete('certificados/{certificado}', [CertificadoController::class,'destroy'])->name('certificados.destroy');
+Route::get('certificados/{id}/pdf', [\App\Http\Controllers\CertificadoController::class, 'downloadPdf'])->name('certificados.downloadPdf');
 
-Route::get('Validador', [CertificadoController::class,'qr'])->name('certificado.qr');
+Route::get('validador', [CertificadoController::class,'qr'])->name('certificado.qr');
 Route::get('/image/{filename}', function ($filename) {
     $path = storage_path('app/' . $filename);
 
