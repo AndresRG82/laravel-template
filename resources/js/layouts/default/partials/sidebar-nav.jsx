@@ -13,6 +13,9 @@ import {
     TableOfContents,
     BookText,
     FileText,
+    Truck,
+    Building2,
+    FolderOpen,
 } from 'lucide-react'
 
 const Icons = {
@@ -24,6 +27,9 @@ const Icons = {
     TableOfContents: TableOfContents,
     BookText: BookText,
     FileText: FileText,
+    Truck: Truck,
+    Building2: Building2,
+    FolderOpen: FolderOpen,
 }
 
 const ItemIcon = ({ icon, ...rest }) => {

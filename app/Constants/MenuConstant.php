@@ -52,7 +52,7 @@ class MenuConstant
             [
                 'name' => 'Certificado',
                 'show' => true,
-                'icon' => 'TableOfContents',
+                'icon' => 'FolderOpen',
                 'route' => route('certificados.index'),
                 'active' => 'certificados.*',
                 'permission' => 'view-certificado',
@@ -60,7 +60,7 @@ class MenuConstant
             [
                 'name' => 'Empresa',
                 'show' => true,
-                'icon' => 'TableOfContents',
+                'icon' => 'Building2',
                 'route' => route('empresas.index'),
                 'active' => 'empresas.*',
                 'permission' => 'view-empresa',
@@ -68,7 +68,7 @@ class MenuConstant
             [
                 'name' => 'Maquinaria',
                 'show' => true,
-                'icon' => 'TableOfContents',
+                'icon' => 'Truck',
                 'route' => route('maquinarias.index'),
                 'active' => 'maquinarias.*',
                 'permission' => 'view-maquinaria',
