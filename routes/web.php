@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // define module as main route
 // Route::get('/', [App\Module\Shortlink\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', function () {
-    return redirect('/login');
+    return inertia('Welcome');
 });
 
 Route::get('files/{file}', [FileController::class, 'show'])->name('file.show');
@@ -73,7 +73,7 @@ Route::put('certificados/{certificado}', [CertificadoController::class,'update']
 Route::delete('certificados/{certificado}', [CertificadoController::class,'destroy'])->name('certificados.destroy');
 Route::get('certificados/{id}/pdf', [\App\Http\Controllers\CertificadoController::class, 'downloadPdf'])->name('certificados.downloadPdf');
 
-Route::get('validador', [CertificadoController::class,'qr'])->name('certificado.qr');
+Route::get('validador', [CertificadoController::class,'qr'])->name('certificado.validate');
 Route::get('/image/{filename}', function ($filename) {
     $path = storage_path('app/' . $filename);
 

@@ -24,18 +24,19 @@ class SettingController extends Controller
         $request->validate([
             'app_name' => 'required|string',
             'app_logo' => 'nullable|string',
+            'welcome_img' => 'nullable|string',
         ]);
 
         DB::beginTransaction();
 
-        foreach ($request->except(['app_logo', 'invoice_watermark']) as $key => $value) {
+        foreach ($request->except(['app_logo', 'welcome_img', 'invoice_watermark']) as $key => $value) {
             Setting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value ?? ''],
             );
         }
 
-        foreach ($request->only(['app_logo', 'invoice_watermark']) as $key => $value) {
+        foreach ($request->only(['app_logo', 'welcome_img', 'invoice_watermark']) as $key => $value) {
             if ($value != '') {
                 Setting::updateOrCreate(
                     ['key' => $key],

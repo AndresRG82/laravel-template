@@ -9,26 +9,26 @@ export default function CustomLayout({ children }) {
         props: { flash },
     } = usePage()
 
+    // Maneja la inicialización del cambio de tema
     useEffect(() => {
         themeChange(false)
-        // 👆 false parameter is required for react project
+        // El parámetro 'false' es crucial para proyectos de React
     }, [])
 
+    // Muestra notificaciones flash
     useEffect(() => {
-        if (flash.message !== null) {
+        if (flash?.message?.message && flash?.message?.type) {
             showToast(flash.message.message, flash.message.type)
         }
     }, [flash])
 
     return (
-        <div className="min-h-screen flex flex-col justify-center">
-            {/* card */}
-            <div className="w-full flex flex-col mx-auto">
-                <div>{children}</div>
-            </div>
+        <div className="min-h-screen flex flex-col">
+            {children}
+            {/* Componente Toaster para mostrar notificaciones */}
             <Toaster
                 theme="system"
-                richColors="true"
+                richColors={true}
                 toastOptions={{
                     duration: 3000,
                     dismissible: true,

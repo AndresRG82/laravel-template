@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, router, usePage } from '@inertiajs/react'
-
+import RemoteLogo from '@/components/RemoteLogo'
 import { filterAllowedMenu } from './helpers.cjs'
 import {
     LogOut,
@@ -95,6 +95,22 @@ const SidebarItemGroup = ({ item }) => {
 }
 
 export default function SidebarNav({ user, show, setShow }) {
+    // Hook para tamaño responsivo del logo
+    const [logoSize, setLogoSize] = useState(32);
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth >= 1024) {
+                setLogoSize(124); // lg
+            } else if (window.innerWidth >= 768) {
+                setLogoSize(96); // md
+            } else {
+                setLogoSize(64); // base
+            }
+        }
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     const {
         props: {
             app: { app_name, app_logo },
@@ -130,19 +146,22 @@ export default function SidebarNav({ user, show, setShow }) {
                 <div className="">
                     <div className="flex flex-row justify-between items-center lg:justify-center p-6">
                         <div className="">
-                            {app_logo ? (
-                                <img
-                                    src={route('file.show', app_logo)}
-                                    alt={app_name}
-                                />
-                            ) : (
-                                <Link
-                                    className="flex-none text-xl font-semibold text-base-content"
-                                    href={route('dashboard')}
-                                >
-                                    {app_name}
-                                </Link>
-                            )}
+                                {app_logo ? (
+                                    <RemoteLogo
+                                        src={route('file.show', app_logo)}
+                                        color="var(--color-base-content)"
+                                        alt={app_name}
+                                        width={logoSize}
+                                        height={logoSize}
+                                    />
+                                ) : (
+                                    <Link
+                                        className="flex-none text-xl font-semibold text-base-content"
+                                        href={route('dashboard')}
+                                    >
+                                        {app_name}
+                                    </Link>
+                                )}
                         </div>
                         <div
                             className="block lg:hidden"

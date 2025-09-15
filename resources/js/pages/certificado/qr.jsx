@@ -12,7 +12,7 @@ export default function CertificadoQr({ certificado, orden_trabajo, error }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitting(true);
-        router.get(route('certificado.qr'), { orden_trabajo: orden }, {
+        router.get(route('certificado.validate'), { orden_trabajo: orden }, {
             preserveState: false,
             replace: true,
             onFinish: () => setSubmitting(false)

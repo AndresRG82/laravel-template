@@ -116,7 +116,7 @@ const CaratulaQr = React.forwardRef(function CaratulaQr(props, ref) {
                 </div>
                 <div className="flex justify-center items-center">
                     <QRCodeCanvas
-                        value={route('certificado.qr', { id: validCertificado.id })}
+                        value={route('certificado.validate', { id: validCertificado.id })}
                         size={110}
                         style={{ border: 'none', boxShadow: 'none', padding: 0 }}
                     />

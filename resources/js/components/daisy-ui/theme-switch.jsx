@@ -1,18 +1,40 @@
 import { Moon, Settings2, Sun } from 'lucide-react'
 
 export function ThemeSwitch() {
-    const themes = [
-        'oscuro', // dark
-        'negocios', // business
-        'claro', // light
-        'nórdico', // nord
-        'tenue', // dim
-        'invierno', // winter
-        'taza', // cupcake
-        'corporativo', // corporate
-        'lofi', // lofi
-        'atardecer', // sunset
-    ]
+    const themes = {
+        'claro': 'light',
+        'oscuro': 'dark',
+        'taza': 'cupcake',
+        'abeja': 'bumblebee',
+        'esmeralda': 'emerald',
+        'corporativo': 'corporate',
+        'synthwave': 'synthwave',
+        'retro': 'retro',
+        'cyberpunk': 'cyberpunk',
+        'valentín': 'valentine',
+        'halloween': 'halloween',
+        'jardín': 'garden',
+        'bosque': 'forest',
+        'agua': 'aqua',
+        'lofi': 'lofi',
+        'pastel': 'pastel',
+        'fantasía': 'fantasy',
+        'wireframe': 'wireframe',
+        'negro': 'black',
+        'lujo': 'luxury',
+        'drácula': 'dracula',
+        'cmyk': 'cmyk',
+        'otoño': 'autumn',
+        'negocios': 'business',
+        'ácido': 'acid',
+        'limonada': 'lemonade',
+        'noche': 'night',
+        'café': 'coffee',
+        'invierno': 'winter',
+        'nórdico': 'nord',
+        'tenue': 'dim',
+        'atardecer': 'sunset',
+    };
 
     return (
         <div className="dropdown dropdown-end hover:bg-base-200 p-1 rounded-2xl">
@@ -25,18 +47,18 @@ export function ThemeSwitch() {
             </div>
             <ul
                 tabIndex={0}
-                className="dropdown-content z-1 p-2 shadow bg-base-100 w-52"
+                className="dropdown-content z-1 p-2 shadow bg-base-100 w-52 max-h-64 overflow-y-auto"
             >
-                {themes.map((t, i) => (
-                    <li key={i}>
+                {Object.entries(themes).map(([label, value]) => (
+                    <li key={value}>
                         <input
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            data-set-theme={t}
+                            data-set-theme={value}
                             data-act-class="ACTIVECLASS"
-                            aria-label={t}
-                            value={t}
+                            aria-label={label}
+                            value={value}
                         />
                     </li>
                 ))}

@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.10.1",
         "milon/barcode": "^12.0",
         "react/async": "^4.3",
+        "sentry/sentry-laravel": "^4.16",
         "spatie/async": "^1.7.0",
         "tightenco/ziggy": "^2.5.3"
     },

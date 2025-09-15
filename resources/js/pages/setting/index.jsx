@@ -26,9 +26,11 @@ export default function Setting(props) {
     const { setting } = props
 
     const app_logo_url = extractValue(setting, 'app_logo')
+    const welcome_img_url = extractValue(setting, 'welcome_img')
     const { data, setData, post, processing, errors } = useForm({
         app_name: extractValue(setting, 'app_name'),
         app_logo: '',
+        welcome_img: '',
     })
 
     const handleOnChange = (event) => {
@@ -73,7 +75,14 @@ export default function Setting(props) {
                         onChange={(file_path) => setData('app_logo', file_path)}
                         error={errors.app_logo}
                         url={app_logo_url}
-                        filemimes="image/jpg,image/jpeg,image/png"
+                            filemimes="image/jpg,image/jpeg,image/png,image/svg+xml,image/webp"
+                    />
+                    <FormFile
+                        label={'Imagen de Bienvenida'}
+                        onChange={(file_path) => setData('welcome_img', file_path)}
+                        error={errors.welcome_img}
+                        url={welcome_img_url}
+                            filemimes="image/jpg,image/jpeg,image/png,image/svg+xml,image/webp"
                     />
 
                     <div className="mt-4">

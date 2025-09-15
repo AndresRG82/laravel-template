@@ -44,7 +44,7 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn() => Session::get('message'),
                 'data' => fn() => Session::get('data'),
             ],
-            'app' => Setting::getByKeys(['app_name', 'app_logo']),
+            'app' => Setting::getByKeys(['app_name', 'app_logo','welcome_img']),
             'navigation' => MenuConstant::handle($request->user())
         ]);
     }
