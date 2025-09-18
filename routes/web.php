@@ -56,6 +56,12 @@ Route::middleware(['auth'])->group(function () {
 
 // #Guest
 
+use App\Http\Controllers\ContactController;
+
+// Contacto
+Route::get('/contacto', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contacto', [ContactController::class, 'send'])->name('contact.send');
+
 
 // Route::get('/{link:code}', [App\Module\Shortlink\Controllers\HomeController::class, 'redirect'])->name('redirect')
 

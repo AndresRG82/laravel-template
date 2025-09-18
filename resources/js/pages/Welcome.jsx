@@ -40,7 +40,7 @@ const HeroSection = () => {
 
                 {/* Botones de acción principal */}
                 <div className="flex flex-col md:flex-row gap-4">
-                    <Link className="btn btn-primary btn-lg">
+                    <Link className="btn btn-primary btn-lg" href={route('contact.show')}>
                         <Phone className="h-6 w-6 mr-2" /> Contáctanos
                     </Link>
                     <Link className="btn btn-outline btn-secondary btn-lg" href={route('certificado.validate')}>
