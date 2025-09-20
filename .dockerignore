@@ -1,0 +1,61 @@
+# Archivos de desarrollo
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Dependencias que se instalan en el contenedor
+node_modules
+vendor
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Logs
+*.log
+storage/logs/*
+
+# Cache y temporal
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+
+# Testing
+coverage
+.phpunit.result.cache
+
+# Documentation
+README.md
+DEPLOYMENT.md
+GITHUB_SECRETS.md
+
+# Docker files (no necesarios dentro del contenedor)
+docker-compose.yml
+docker-compose.prod.yml
+Dockerfile
+Dockerfile.prod
+
+# Scripts de desarrollo
+*.sh
+dev.sh
+setup.sh
+init-project.sh
+
+# Archivos de backup
+*.sql
+*.dump

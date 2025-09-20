@@ -5,12 +5,12 @@ FROM php:8.3-fpm
 ARG user
 ARG uid
 
-ENV TZ=Asia/Jakarta
+ENV TZ=America/Santiago
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install system dependencies
-RUN apt-get update && apt-get dist-upgrade -y && \ 
+RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get install -y \
     git \
     libcurl4-gnutls-dev \
@@ -25,17 +25,16 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     libgmp-dev \
     vim-nox \
     iputils-ping \
-    mariadb-client \
     postgresql-client \
     sudo
 
 # Install PHP extensions (default version)
 # RUN docker-php-ext-install pdo mysqli pdo_mysql mbstring exif pcntl bcmath gd intl zip pgsql pdo_pgsql curl xml
 
-# Install PHP extension with install php extension 
+# Install PHP extension with install php extension
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions
-RUN install-php-extensions pdo mysqli pdo_mysql mbstring exif pcntl bcmath gd intl zip pgsql pdo_pgsql curl xml sockets
+RUN install-php-extensions pdo mbstring exif pcntl bcmath gd intl zip pgsql pdo_pgsql curl xml sockets
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
