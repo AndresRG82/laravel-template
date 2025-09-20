@@ -25,6 +25,10 @@ done
 
 echo "✅ PostgreSQL está listo!"
 
+# Crear base de datos de testing
+echo "🗄️  Creando base de datos de testing..."
+docker compose exec postgresql psql -U app -d app -c "CREATE DATABASE testing;" || echo "Base de datos testing ya existe"
+
 # Instalar dependencias de Composer
 echo "📦 Instalando dependencias de Composer..."
 docker compose exec app composer install --no-dev --optimize-autoloader
@@ -90,6 +94,10 @@ echo "   - Host: localhost:5433"
 echo "   - Base de datos: app"
 echo "   - Usuario: app"
 echo "   - Contraseña: password"
+echo ""
+echo "🧪 Base de datos de testing configurada:"
+echo "   - Nombre: testing"
+echo "   - Para ejecutar tests: ./dev.sh test"
 echo ""
 echo "Para development mode con hot reload:"
 echo "   docker compose exec build npm run dev"

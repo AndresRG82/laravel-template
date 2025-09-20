@@ -65,6 +65,19 @@ case "$1" in
         echo "🎨 Compilando assets..."
         docker compose exec build npm run build
         ;;
+    "test")
+        echo "🧪 Ejecutando tests..."
+        docker compose exec app vendor/bin/pest
+        ;;
+    "test-migrate")
+        echo "🗄️ Preparando base de datos de testing..."
+        docker compose exec postgresql psql -U app -d app -c "DROP DATABASE IF EXISTS testing;" || true
+        docker compose exec postgresql psql -U app -d app -c "CREATE DATABASE testing;"
+        # Configurar variables de entorno para testing y ejecutar migraciones
+        docker compose exec -e DB_DATABASE=testing app php artisan migrate --force
+        echo "🧪 Ejecutando tests..."
+        docker compose exec app vendor/bin/pest
+        ;;
     "dev")
         echo "🔥 Iniciando modo desarrollo con hot reload..."
         docker compose exec build npm run dev
@@ -85,6 +98,10 @@ case "$1" in
         echo "  ./dev.sh migrate            - Ejecutar migraciones"
         echo "  ./dev.sh seed               - Ejecutar seeders"
         echo "  ./dev.sh fresh              - Recrear BD con seeders"
+        echo ""
+        echo "Testing:"
+        echo "  ./dev.sh test               - Ejecutar tests"
+        echo "  ./dev.sh test-migrate       - Recrear BD testing y ejecutar tests"
         echo ""
         echo "Dependencias:"
         echo "  ./dev.sh composer [comando] - Ejecutar comando composer"

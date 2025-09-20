@@ -2,13 +2,20 @@
 
 ## 🎯 Antes del primer despliegue
 
-### 1. Generar APP_KEY
+### 1. Verificar que tests pasen localmente
+```bash
+./dev.sh test-migrate  # Esto prepara BD y ejecuta tests
+# O simplemente:
+./dev.sh test          # Si ya tienes la BD de testing
+```
+
+### 2. Generar APP_KEY
 ```bash
 ./generate-app-key.sh
 # Copia el valor generado para GitHub Secrets
 ```
 
-### 2. Configurar GitHub Secrets (OBLIGATORIOS)
+### 3. Configurar GitHub Secrets (OBLIGATORIOS)
 Ve a: https://github.com/AndresRG82/certificados/settings/secrets/actions
 
 - [ ] `DOCKER_USERNAME` - Tu usuario de Docker Hub
@@ -22,7 +29,7 @@ Ve a: https://github.com/AndresRG82/certificados/settings/secrets/actions
 - [ ] `DB_USERNAME` - `certificados_user`
 - [ ] `DB_PASSWORD` - Password seguro para PostgreSQL
 
-### 3. Configurar GitHub Secrets (OPCIONALES - Email)
+### 4. Configurar GitHub Secrets (OPCIONALES - Email)
 - [ ] `MAIL_MAILER` - `smtp`
 - [ ] `MAIL_HOST` - `smtp.gmail.com`
 - [ ] `MAIL_PORT` - `587`
@@ -31,7 +38,7 @@ Ve a: https://github.com/AndresRG82/certificados/settings/secrets/actions
 - [ ] `MAIL_ENCRYPTION` - `tls`
 - [ ] `MAIL_FROM_ADDRESS` - email de envío
 
-### 4. Preparar Droplet DigitalOcean
+### 5. Preparar Droplet DigitalOcean
 - [ ] Droplet creado con Ubuntu 22.04
 - [ ] SSH Key agregado al droplet
 - [ ] Conexión SSH funcionando: `ssh root@TU_IP`
