@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DefaultSeeder::class,
-            DummySeeder::class,
             EmpresaSeeder::class,
             TipoMaquinariaSeeder::class,
             MaquinariaSeeder::class,

@@ -18,32 +18,53 @@ class DefaultSeeder extends Seeder
      */
     public function run(): void
     {
+        // Insertar configuraciones solo si no existen
         foreach (SettingConstant::all() as $setting) {
-            Setting::insert(['id' => Str::ulid(), ...$setting]);
+            $exists = Setting::where('key', $setting['key'])->exists();
+            if (!$exists) {
+                Setting::insert(['id' => Str::ulid(), ...$setting]);
+            }
         }
 
+        // Insertar permisos solo si no existen
         foreach (PermissionConstant::all() as $permission) {
-            Permission::insert(['id' => Str::ulid(), ...$permission]);
+            $exists = Permission::where('name', $permission['name'])->exists();
+            if (!$exists) {
+                Permission::insert(['id' => Str::ulid(), ...$permission]);
+            }
         }
 
-        $role = Role::create(['name' => 'admin']);
+        // Crear rol admin solo si no existe
+        $role = Role::firstOrCreate(['name' => 'admin']);
 
+        // Asignar permisos al rol solo si no los tiene
         $permissions = Permission::all();
         foreach ($permissions as $permission) {
-            $role->rolePermissions()->create(['permission_id' => $permission->id]);
+            $rolePermissionExists = $role->rolePermissions()
+                ->where('permission_id', $permission->id)
+                ->exists();
+
+            if (!$rolePermissionExists) {
+                $role->rolePermissions()->create(['permission_id' => $permission->id]);
+            }
         }
 
-        User::create([
-            'name' => 'Super Administrator',
-            'email' => 'root@admin.com',
-            'password' => bcrypt('password'),
-        ]);
+        // Crear usuarios solo si no existen
+        User::firstOrCreate(
+            ['email' => 'root@admin.com'],
+            [
+                'name' => 'Super Administrator',
+                'password' => bcrypt('password'),
+            ]
+        );
 
-        User::create([
-            'name' => 'Administator',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-            'role_id' => $role->id,
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name' => 'Administator',
+                'password' => bcrypt('password'),
+                'role_id' => $role->id,
+            ]
+        );
     }
 }

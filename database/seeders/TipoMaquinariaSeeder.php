@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\TipoMaquinaria;
 
 class TipoMaquinariaSeeder extends Seeder
 {
@@ -13,14 +13,8 @@ class TipoMaquinariaSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-         DB::table('tipo_maquinarias')->insert([
-            'nombre' => "CAMION-ESTANQUE",
-
-        ]);
-         DB::table('tipo_maquinarias')->insert([
-            'nombre' => "TRACTO CAMION",
-
-        ]);
+        // Crear tipos de maquinaria solo si no existen
+        TipoMaquinaria::firstOrCreate(['nombre' => 'CAMION-ESTANQUE']);
+        TipoMaquinaria::firstOrCreate(['nombre' => 'TRACTO CAMION']);
     }
 }
