@@ -37,20 +37,23 @@ docker compose exec app composer install --no-dev --optimize-autoloader
 if ! docker compose exec app test -f .env > /dev/null 2>&1; then
     echo "⚙️  Creando archivo .env desde .env.example..."
     docker compose exec app cp .env.example .env
-
-    # Configurar variables específicas para PostgreSQL
-    echo "🔧 Configurando variables de base de datos para PostgreSQL..."
-    docker compose exec app sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=pgsql/' .env
-    docker compose exec app sed -i 's/DB_HOST=.*/DB_HOST=postgresql/' .env
-    docker compose exec app sed -i 's/DB_PORT=.*/DB_PORT=5432/' .env
-    docker compose exec app sed -i 's/DB_DATABASE=.*/DB_DATABASE=app/' .env
-    docker compose exec app sed -i 's/DB_USERNAME=.*/DB_USERNAME=app/' .env
-    docker compose exec app sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=password/' .env
 else
-    echo "⚠️  El archivo .env ya existe, saltando configuración..."
+    echo "⚠️  El archivo .env ya existe, verificando configuración..."
 fi
 
-# Generar clave de aplicación si no existe
+# Asegurar configuración correcta de PostgreSQL en .env
+echo "🔧 Configurando variables de base de datos para PostgreSQL..."
+docker compose exec app sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=pgsql/' .env
+docker compose exec app sed -i 's/# DB_HOST=.*/DB_HOST=postgresql/' .env
+docker compose exec app sed -i 's/DB_HOST=.*/DB_HOST=postgresql/' .env
+docker compose exec app sed -i 's/# DB_PORT=.*/DB_PORT=5432/' .env
+docker compose exec app sed -i 's/DB_PORT=.*/DB_PORT=5432/' .env
+docker compose exec app sed -i 's/# DB_DATABASE=.*/DB_DATABASE=app/' .env
+docker compose exec app sed -i 's/DB_DATABASE=.*/DB_DATABASE=app/' .env
+docker compose exec app sed -i 's/# DB_USERNAME=.*/DB_USERNAME=app/' .env
+docker compose exec app sed -i 's/DB_USERNAME=.*/DB_USERNAME=app/' .env
+docker compose exec app sed -i 's/# DB_PASSWORD=.*/DB_PASSWORD=password/' .env
+docker compose exec app sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=password/' .env# Generar clave de aplicación si no existe
 echo "🔑 Verificando/generando clave de aplicación..."
 if ! docker compose exec app grep -q "APP_KEY=base64:" .env > /dev/null 2>&1; then
     docker compose exec app php artisan key:generate
