@@ -169,17 +169,17 @@ jobs:
           # App Configuration
           APP_NAME=Certificados
           APP_ENV=production
-          APP_KEY=${{ secrets.APP_KEY }}
+          APP_KEY=${{ secrets.APP_KEY || 'base64:PLEASE_GENERATE_NEW_KEY' }}
           APP_DEBUG=false
-          APP_URL=${{ secrets.APP_URL }}
+          APP_URL=${{ secrets.APP_URL || 'http://localhost' }}
 
           # Database Configuration
           DB_CONNECTION=pgsql
           DB_HOST=postgresql
           DB_PORT=5432
-          DB_DATABASE=${{ secrets.DB_DATABASE }}
-          DB_USERNAME=${{ secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_DATABASE=${{ secrets.DB_DATABASE || 'certificados' }}
+          DB_USERNAME=${{ secrets.DB_USERNAME || 'app' }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD || 'password' }}
 
           # Cache and Session
           CACHE_DRIVER=file
@@ -188,17 +188,17 @@ jobs:
           SESSION_LIFETIME=120
 
           # Mail Configuration
-          MAIL_MAILER=${{ secrets.MAIL_MAILER }}
-          MAIL_HOST=${{ secrets.MAIL_HOST }}
-          MAIL_PORT=${{ secrets.MAIL_PORT }}
-          MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
-          MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
-          MAIL_ENCRYPTION=${{ secrets.MAIL_ENCRYPTION }}
-          MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS }}
+          MAIL_MAILER=${{ secrets.MAIL_MAILER || 'log' }}
+          MAIL_HOST=${{ secrets.MAIL_HOST || 'localhost' }}
+          MAIL_PORT=${{ secrets.MAIL_PORT || '587' }}
+          MAIL_USERNAME=${{ secrets.MAIL_USERNAME || '' }}
+          MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD || '' }}
+          MAIL_ENCRYPTION=${{ secrets.MAIL_ENCRYPTION || 'tls' }}
+          MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS || 'noreply@certificados.local' }}
           MAIL_FROM_NAME=Certificados
 
           # Docker Configuration
-          DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
+          DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME || 'defaultuser' }}
           IMAGE_TAG=${{ github.sha }}
 
           # Logging
@@ -207,7 +207,7 @@ jobs:
           EOF
 
           # Run deployment
-          sudo ./deploy.sh ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+          sudo ./deploy.sh ${{ secrets.DOCKER_USERNAME || 'defaultuser' }}/certificados:${{ github.sha }}
 
     - name: Notification
       if: always()
