@@ -51,7 +51,6 @@ Dockerfile
 Dockerfile.prod
 
 # Scripts de desarrollo
-*.sh
 dev.sh
 setup.sh
 init-project.sh
